@@ -66,17 +66,21 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 
-# ─── Load Model ────────────────────────────────────────────────
 @st.cache_resource
 def load_model():
     model_path = "model_final.keras"
 
-    # Download model dari Google Drive jika belum ada
-    if not os.path.exists(model_path):
-        url = "https://drive.google.com/uc?id=1Qw1r-D0uwwIvq2fbZ4lWsQPPTjmxsS8E"
-        gdown.download(url, model_path, quiet=False)
+    try:
+        if not os.path.exists(model_path):
+            url = "https://drive.google.com/uc?id=1Qw1r-D0uwwIvq2fbZ4lWsQPPTjmxsS8E"
+            gdown.download(url, model_path, quiet=True)
 
-    return tf.keras.models.load_model(model_path)
+        model = tf.keras.models.load_model(model_path)
+        return model
+
+    except Exception as e:
+        st.error(f"❌ Gagal load model: {e}")
+        return None
 
 
 # ─── Fungsi Prediksi ───────────────────────────────────────────
