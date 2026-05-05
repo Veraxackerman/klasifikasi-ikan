@@ -3,7 +3,7 @@ import numpy as np
 from PIL import Image
 import tensorflow as tf
 import os
-
+import gdown
 # ─── Konfigurasi Halaman ───────────────────────────────────────
 st.set_page_config(
     page_title="Klasifikasi Kesegaran Ikan",
@@ -69,10 +69,13 @@ st.markdown("""
 # ─── Load Model ────────────────────────────────────────────────
 @st.cache_resource
 def load_model():
-    """Muat model dari file .keras — sesuaikan path jika perlu."""
-    model_path = "model_final.keras"          # ← sesuaikan path model kamu
+    model_path = "model_final.keras"
+
+    # Download model dari Google Drive jika belum ada
     if not os.path.exists(model_path):
-        return None
+        url = "https://drive.google.com/uc?id=1Qw1r-D0uwwIvq2fbZ4lWsQPPTjmxsS8E"
+        gdown.download(url, model_path, quiet=False)
+
     return tf.keras.models.load_model(model_path)
 
 
