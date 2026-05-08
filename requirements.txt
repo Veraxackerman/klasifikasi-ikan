@@ -1,5 +1,7 @@
-streamlit==1.36.0
-tensorflow-cpu==2.19.0
-numpy==1.26.4
-Pillow==10.2.0
-gdown==5.1.0
+streamlit
+tensorflow
+numpy
+pillow
+opencv-python-headless
+scikit-learn
+h5py
